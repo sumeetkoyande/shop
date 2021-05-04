@@ -1,0 +1,12 @@
+.brand{
+  cursor: pointer;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+.user-img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}

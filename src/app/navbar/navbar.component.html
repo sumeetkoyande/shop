@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  <button fxHide.gt-sm mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span routerLink="/home" class="brand">Shop</span>
+  <div fxHide.lt-sm class="nav-menu">
+    <button mat-flat-button color="primary" routerLink="/home">Home</button>
+    <button mat-flat-button color="primary" routerLink="/products">Products</button>
+  </div>
+  
+  <span class="example-spacer"></span>
+
+  <button routerLink="/shopping-cart" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+
+  <!-- when user is not logged in  -->
+  <ng-template #notLoggedIn>
+    <button routerLink="/login" mat-icon-button >
+      Log In
+    </button>
+  </ng-template>
+
+  <!-- when user is logged in -->
+  <div *ngIf="auth.user$ | async as user; else notLoggedIn">
+    <button mat-button [matMenuTriggerFor]="menu" >
+      <!-- <mat-icon>account_circle</mat-icon> -->
+      <img class="user-img" src="{{user.photoURL}}" alt="" srcset="">
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>{{user.displayName}}</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/my/orders">My Order</button>
+      <button mat-menu-item routerLink="/admin/orders">Manage Orders</button>
+      <button mat-menu-item routerLink="/admin/products">Manage Products</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">Log Out</button>
+    </mat-menu>
+  </div>
+  
+</mat-toolbar>

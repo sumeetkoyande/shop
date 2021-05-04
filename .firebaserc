@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "shop-5694"
+  },
+  "targets": {
+    "shop-5694": {
+      "hosting": {
+        "shop": [
+          "shop-5694"
+        ]
+      }
+    }
+  }
+}
