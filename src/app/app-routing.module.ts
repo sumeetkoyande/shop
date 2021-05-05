@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
@@ -16,23 +17,22 @@ import {  } from 'rxjs/operators';
 
 
 // const Unauthorized = () => redirectUnauthorizedTo(['login']);
-const loggedIn = () => redirectLoggedInTo(['home']);
 const Unauthorized = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent, ...canActivate(loggedIn) },
-  { path: 'sign-up', component: SignUpComponent, ...canActivate(loggedIn) },
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
 
-  { path: 'check-out', component: CheckOutComponent, ...canActivate(Unauthorized) },
-  { path: 'my/orders', component: MyOrdersComponent, ...canActivate(Unauthorized) },
-  { path: 'order-success', component: OrderSuccessComponent, ...canActivate(Unauthorized) },
+  { path: 'check-out', component: CheckOutComponent, canActivate:[AuthGuard] },
+  { path: 'my/orders', component: MyOrdersComponent, canActivate:[AuthGuard] },
+  { path: 'order-success', component: OrderSuccessComponent, canActivate:[AuthGuard] },
 
-  { path: 'admin/products', component: AdminProductsComponent, ...canActivate(Unauthorized) },
-  { path: 'admin/orders', component: AdminOrdersComponent, ...canActivate(Unauthorized) },
+  { path: 'admin/products', component: AdminProductsComponent, canActivate:[AuthGuard] },
+  { path: 'admin/orders', component: AdminOrdersComponent, canActivate:[AuthGuard] },
   // { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: Unauthorized } }
   
   { path: '**', component: NotFoundComponent }

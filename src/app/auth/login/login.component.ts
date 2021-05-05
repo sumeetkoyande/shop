@@ -1,4 +1,3 @@
-import { UserService } from './../../services/user.service';
 import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
 
@@ -9,13 +8,14 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
-  constructor(private auth: AuthService, private userService: UserService) { }
+  constructor(private auth: AuthService) { }
 
-  async googleLogin() {
-    await this.auth.googleLogin();
-    await this.auth.user$.subscribe(userData => {
-      this.userService.save(userData);
-    })
+  googleLogin() {
+    this.auth.googleLogin();
+  }
+
+  emailLogin(){
+    this.auth.emailLogin();
   }
 
 }

@@ -8,9 +8,5 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class UserService {
 
   constructor(private db:AngularFirestore) { }
-
-  save(user:firebase.User): void {
-    console.log('save')
-    this.db.collection('users').doc(user.uid);
-  }
+  
 }
