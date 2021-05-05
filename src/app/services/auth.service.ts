@@ -15,7 +15,6 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
   user$: Observable<User>;
-  returnURL:string;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +25,6 @@ export class AuthService {
       this.user$ = afAuth.authState.pipe(
         switchMap(user => {
           if(user){
-            
             return this.db.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null)
@@ -37,23 +35,19 @@ export class AuthService {
 
   async googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const credentils = await this.afAuth.signInWithPopup(provider);
-    this.router.navigate([this.returnURL]);
-    return this.updateUser(credentils.user)
+    await this.OAuthLogin(provider);
   }
 
-  emailLogin(){
-    this.returnURL = this.route.snapshot.paramMap.get('returnUrl')
-    // this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/';
-    console.log(this.returnURL);
-    // http://localhost:4200/login;returnUrl=%2Fcheck-out
+  private async OAuthLogin(provider){
+    let returnURL = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    let credentials = await this.afAuth.signInWithPopup(provider);
+    await this.updateUser(credentials.user);
+    this.router.navigate([returnURL]);
   }
 
   private updateUser({ uid, email, displayName, photoURL }:User){
-    const userRef:AngularFirestoreDocument<User> = this.db.doc(`users/${uid}`)
-
+    const userRef:AngularFirestoreDocument<User> = this.db.doc(`users/${uid}`);
     const userData = { uid, email, displayName, photoURL };
-
     userRef.set(userData,{ merge:true });
   }
 

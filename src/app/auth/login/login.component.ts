@@ -15,7 +15,7 @@ export class LoginComponent {
   }
 
   emailLogin(){
-    this.auth.emailLogin();
+    // this.auth.emailLogin();
   }
 
 }
