@@ -8,7 +8,8 @@
   },
   "hosting": [
     {
-      "public": "dist",
+      "target":"shop",
+      "public": "dist/shop",
       "ignore": [
         "firebase.json",
         "**/.*",
