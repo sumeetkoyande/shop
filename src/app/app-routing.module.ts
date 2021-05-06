@@ -32,15 +32,14 @@ const routes: Routes = [
   { path: 'order-success', component: OrderSuccessComponent, canActivate:[AuthGuard] },
 
   //admin routes
-  { 
-    path: 'admin/products', 
-    component: AdminProductsComponent, 
-    canActivate: [AuthGuard,AdminGuard] 
-  },
   {
     path: 'admin/products/add',
     component: AddProductComponent,
-    canActivate: [AuthGuard,AdminGuard]
+  },
+  { 
+    path: 'admin/products', 
+    component: AdminProductsComponent, 
+    canActivate:[AuthGuard,AdminGuard] 
   },
   { 
     path: 'admin/orders', 
