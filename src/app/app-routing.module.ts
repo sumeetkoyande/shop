@@ -1,3 +1,4 @@
+import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
@@ -12,14 +13,12 @@ import { ProductsComponent } from './products/products.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AngularFireAuthGuard, canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from "@angular/fire/auth-guard";
-import {  } from 'rxjs/operators';
+import { AddProductComponent } from './admin/add-product/add-product.component';
 
-
-// const Unauthorized = () => redirectUnauthorizedTo(['login']);
-const Unauthorized = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
+
+  //open routes
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -27,14 +26,29 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
 
+  //Protected routes
   { path: 'check-out', component: CheckOutComponent, canActivate:[AuthGuard] },
   { path: 'my/orders', component: MyOrdersComponent, canActivate:[AuthGuard] },
   { path: 'order-success', component: OrderSuccessComponent, canActivate:[AuthGuard] },
 
-  { path: 'admin/products', component: AdminProductsComponent, canActivate:[AuthGuard] },
-  { path: 'admin/orders', component: AdminOrdersComponent, canActivate:[AuthGuard] },
-  // { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AngularFireAuthGuard], data: { authGuardPipe: Unauthorized } }
+  //admin routes
+  { 
+    path: 'admin/products', 
+    component: AdminProductsComponent, 
+    canActivate: [AuthGuard,AdminGuard] 
+  },
+  {
+    path: 'admin/products/add',
+    component: AddProductComponent,
+    canActivate: [AuthGuard,AdminGuard]
+  },
+  { 
+    path: 'admin/orders', 
+    component: AdminOrdersComponent, 
+    canActivate:[AuthGuard,AdminGuard] 
+  },
   
+  //wildcard route
   { path: '**', component: NotFoundComponent }
 ];
 
