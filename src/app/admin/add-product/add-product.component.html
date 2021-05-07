@@ -1,7 +1,7 @@
-<div fxFill fxLayout="row" fxLayoutAlign="center center">
+<div class="nav-wrapper" fxFill fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex.gt-sm="25" fxLayout="column" fxLayoutAlign="center center">
         <h2>Add Product</h2>
-        <form fxFill action="" fxLayout="column">
+        <form  fxFill action="" fxLayout="column">
             <mat-form-field appearance="legacy">
                 <mat-label>Title</mat-label>
                 <input matInput placeholder="Title">
@@ -9,15 +9,26 @@
             <mat-form-field appearance="legacy">
                 <mat-label>Price</mat-label>
                 <input type="number" matInput placeholder="Price">
+                <span matPrefix>$&nbsp;&nbsp;&nbsp;</span>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Category</mat-label>
-                <input matInput placeholder="Category">
+                <mat-select>
+                    <mat-option 
+                        *ngFor="let category of categories$ |async" 
+                        [value]="category.categoryName">
+                        {{category.categoryName}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Image URL</mat-label>
                 <input matInput placeholder="Image URL">
             </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="end end">
+                <button color="warn" mat-raised-button>Add</button>
+            </div>
         </form>
     </div>
 </div>
+

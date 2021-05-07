@@ -1,3 +1,4 @@
+import { AdminRoutingModule } from './admin-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
@@ -18,11 +19,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     MaterialModule,
     FlexLayoutModule,
+    AdminRoutingModule
   ],
-  exports: [
-    AdminProductsComponent,
-    AdminOrdersComponent,
-    AddProductComponent
-  ]
 })
 export class AdminModule { }

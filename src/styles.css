@@ -3,7 +3,19 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/* App dark theme */
 .temp-dark-style{
     color: white;
     background-color: #0D1117;
+}
+/* tog get full body height excluding navbar */
+.nav-wrapper{
+    height: calc(100vh - 64px) !important;
+    min-height: calc(100vh - 64px) !important;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

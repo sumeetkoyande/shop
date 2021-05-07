@@ -4,8 +4,9 @@
   </button>
   <span routerLink="/home" class="brand">Shop</span>
   <div fxHide.lt-sm class="nav-menu">
-    <button mat-flat-button color="primary" routerLink="/home">Home</button>
-    <button mat-flat-button color="primary" routerLink="/products">Products</button>
+    <button mat-flat-button color="primary" routerLink="home">Home</button>
+    <button mat-flat-button color="primary" routerLink="products">Products</button>
+    <button mat-flat-button color="primary" routerLink="admin/products/add">Add</button>
   </div>
   
   <span class="example-spacer"></span>
@@ -28,13 +29,13 @@
       <img class="user-img" src="{{user.photoURL}}" alt="" srcset="">
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/profile">{{user.displayName}}</button>
+      <button mat-menu-item routerLink="profile">{{user.displayName}}</button>
       <mat-divider></mat-divider>
-      <button mat-menu-item routerLink="/my/orders">My Order</button>
+      <button mat-menu-item routerLink="my/orders">My Order</button>
       <!-- buttons for admin role -->
       <ng-container *ngIf="user.role.admin">
-        <button mat-menu-item routerLink="/admin/orders">Manage Orders</button>
-        <button mat-menu-item routerLink="/admin/products">Manage Products</button>
+        <button mat-menu-item routerLink="admin/orders">Manage Orders</button>
+        <button mat-menu-item routerLink="admin/products">Manage Products</button>
       </ng-container>
       <!-- buttons for admin role -->
       <mat-divider></mat-divider>
