@@ -51,8 +51,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AngularFirestoreModule,
     FlexLayoutModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     AdminModule,
     AuthModule
   ],

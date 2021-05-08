@@ -1,32 +1,32 @@
 <div class="nav-wrapper" fxFill fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex.gt-sm="25" fxLayout="column" fxLayoutAlign="center center">
         <h2>Add Product</h2>
-        <form  fxFill action="" fxLayout="column">
+        <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" fxFill action="" fxLayout="column">
             <mat-form-field appearance="legacy">
                 <mat-label>Title</mat-label>
-                <input matInput placeholder="Title">
+                <input matInput placeholder="Title" formControlName="title">
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Price</mat-label>
-                <input type="number" matInput placeholder="Price">
+                <input type="number" matInput placeholder="Price" formControlName="price">
                 <span matPrefix>$&nbsp;&nbsp;&nbsp;</span>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Category</mat-label>
-                <mat-select>
+                <mat-select formControlName="category">
                     <mat-option 
                         *ngFor="let category of categories$ |async" 
-                        [value]="category.categoryName">
+                        [value]="category.categoryID">
                         {{category.categoryName}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Image URL</mat-label>
-                <input matInput placeholder="Image URL">
+                <input matInput placeholder="Image URL" formControlName="ImageURL">
             </mat-form-field>
             <div fxLayout="row" fxLayoutAlign="end end">
-                <button color="warn" mat-raised-button>Add</button>
+                <button type="submit" color="warn" mat-raised-button>Add</button>
             </div>
         </form>
     </div>
