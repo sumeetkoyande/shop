@@ -5,10 +5,12 @@
             <mat-form-field appearance="legacy">
                 <mat-label>Title</mat-label>
                 <input matInput placeholder="Title" formControlName="title">
+                <mat-error *ngIf="f.title.hasError('required')">Title is Required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Price</mat-label>
                 <input type="number" matInput placeholder="Price" formControlName="price">
+                <mat-error *ngIf="f.price.hasError('required')">Price is Required</mat-error>
                 <span matPrefix>$&nbsp;&nbsp;&nbsp;</span>
             </mat-form-field>
             <mat-form-field appearance="legacy">
@@ -20,13 +22,15 @@
                         {{category.categoryName}}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="f.category.hasError('required')">category is Required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Image URL</mat-label>
-                <input matInput placeholder="Image URL" formControlName="ImageURL">
+                <input matInput placeholder="Image URL" formControlName="imageURL">
+                <mat-error *ngIf="f.imageURL.hasError('required')">Image URL is Required</mat-error>
             </mat-form-field>
             <div fxLayout="row" fxLayoutAlign="end end">
-                <button type="submit" color="warn" mat-raised-button>Add</button>
+                <button [disabled]="!addProductForm.valid" type="submit" color="warn" mat-raised-button>Add</button>
             </div>
         </form>
     </div>

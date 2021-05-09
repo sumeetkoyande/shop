@@ -12,11 +12,16 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class AddProductComponent implements OnInit {
 
   categories$:Observable<category[]>;
+
+  //custome validators
+  numberPattern = '^[0-9]*$';
+  urlPattern = '^((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)$';
+
   addProductForm = this.fb.group({
     title: ['',[Validators.required]],
-    price: ['',[Validators.required]],
+    price: ['',[Validators.required,Validators.pattern(this.numberPattern)]],
     category: ['',[Validators.required]],
-    ImageURL: ['',[Validators.required]]
+    imageURL: ['',[Validators.required,Validators.pattern(this.urlPattern)]]
   })
 
   constructor(
@@ -28,7 +33,17 @@ export class AddProductComponent implements OnInit {
     this.categories$ = this.categoryService.getCategories();
   }
 
+  //get form controlls
+  get f(){
+    return this.addProductForm.controls;
+  }
+
+  //add product
   addProduct(){
+    if (this.addProductForm.valid){
+      console.log(this.addProductForm.value)
+    }
+      
    
   }
 
