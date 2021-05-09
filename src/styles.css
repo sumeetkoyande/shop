@@ -10,7 +10,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 /* tog get full body height excluding navbar */
 .nav-wrapper{
-    height: calc(100vh - 64px) !important;
+    /* height: calc(100vh - 64px) !important; */
     min-height: calc(100vh - 64px) !important;
 }
 

@@ -21,6 +21,7 @@ export class AddProductComponent implements OnInit {
     title: ['',[Validators.required]],
     price: ['',[Validators.required,Validators.pattern(this.numberPattern)]],
     category: ['',[Validators.required]],
+    description: ['',[Validators.required]],
     imageURL: ['',[Validators.required,Validators.pattern(this.urlPattern)]]
   })
 
