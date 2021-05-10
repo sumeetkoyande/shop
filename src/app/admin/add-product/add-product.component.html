@@ -1,28 +1,29 @@
-<div class="nav-wrapper" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="end center" fxLayoutGap.xs="25px">
-    <div fxFill fxFlex="50" fxLayoutAlign="center center" fxFlexOrder.xs="1">
-        <div fxFlex="50" fxFlex.xs="90" class="form-wrapper">
+<div class="nav-wrapper" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center" fxLayoutGap.xs="25px">
+    <div fxFill fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="1">
+        <div fxFlex="50" fxFlex.xs="90" class="form-wrapper my-2">
             <h2>Add Product</h2>
-            <form [formGroup]="addProductForm" (ngSubmit)="addProduct()" fxFill fxLayout="column">
+            <button mat-raised-button (click)="check()">Check</button>
+            <form  [formGroup]="addProductForm" (ngSubmit)="addProduct()" fxFill fxLayout="column">
                 <mat-form-field appearance="legacy">
                     <mat-label>Title</mat-label>
-                    <input matInput placeholder="Title" formControlName="title">
+                    <input [(ngModel)]="product$.title" matInput placeholder="Title" formControlName="title">
                     <mat-error *ngIf="f.title.hasError('required')">Title is Required</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Price</mat-label>
-                    <input type="number" matInput placeholder="Price" formControlName="price">
+                    <input [(ngModel)]="product$.price" type="number" matInput placeholder="Price" formControlName="price">
                     <mat-error *ngIf="f.price.hasError('required')">Price is Required</mat-error>
-                    <mat-error *ngIf="f.price.hasError('pattern')">Enter valid price</mat-error>
-                    <span matPrefix>$&nbsp;&nbsp;&nbsp;</span>
+                    <!-- <mat-error *ngIf="f.price.hasError('pattern')">Enter valid price</mat-error> -->
+                    <span matPrefix>&#8377;&nbsp;&nbsp;&nbsp;</span>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Description</mat-label>
-                    <input type="text" matInput placeholder="Price" formControlName="description">
+                    <input [(ngModel)]="product$.description" type="text" matInput placeholder="Price" formControlName="description">
                     <mat-error *ngIf="f.description.hasError('required')">Description is Required</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Category</mat-label>
-                    <mat-select formControlName="category">
+                    <mat-select formControlName="category" [(ngModel)]="product$.category">
                         <mat-option 
                             *ngFor="let category of categories$ |async" 
                             [value]="category.categoryID">
@@ -33,32 +34,31 @@
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Image URL</mat-label>
-                    <input matInput placeholder="Image URL" formControlName="imageURL">
+                    <input [(ngModel)]="product$.imageURL" matInput placeholder="Image URL" formControlName="imageURL">
                     <mat-error *ngIf="f.imageURL.hasError('required')">Image URL is Required</mat-error>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="end end">
-                    <button [disabled]="!addProductForm.valid" type="submit" color="warn" mat-raised-button>Add</button>
+                    <button type="submit" color="primary" mat-raised-button>Add</button>
+                    <button *ngIf="" type="submit" color="primary" mat-raised-button>Update</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div fxFlex="50" fxLayoutAlign="center center" fxFlexOrder.xs="2">
-        <div fxFlex="50" fxFlex.xs="90">
+    <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="2">
+        <div fxFlex="50" fxFlex.xs="90" class="my-3">
             <mat-card class="example-card">
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-header>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                <img mat-card-image [src]="f.imageURL.value">
+                <mat-card-header fxLayout="row" fxLayoutAlign="space-between center" >
+                    <mat-card-title>{{f.title.value}}</mat-card-title>
+                    <mat-card-subtitle>{{f.category.value}}</mat-card-subtitle>
+                    <h3>{{f.price.value | currency:'INR'}}</h3>
                 </mat-card-header>
                 <mat-card-content>
-                <p>
-                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                </p>
+                    <p>{{f.description.value}}</p>
                 </mat-card-content>
-                <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
+                <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+                <button color="primary" *ngIf="addProductForm.valid" mat-raised-button>Purchase</button>
                 </mat-card-actions>
             </mat-card>
         </div>
@@ -66,7 +66,3 @@
 
 </div>
 
-
-
-
-<!-- fxFlex.lt-sm="90" fxFlex.lt-md="60" fxFlex.gt-md="20" fxFlex.gt-sm="40" -->

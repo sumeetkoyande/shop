@@ -10,6 +10,12 @@ const routes:Routes = [
     {
         path: 'products/add',
         component: AddProductComponent,
+        canActivate:[AuthGuard,AdminGuard] 
+    },
+    {
+        path: 'products/:id',
+        component: AddProductComponent,
+        canActivate:[AuthGuard,AdminGuard] 
     },
     { 
         path: 'products', 

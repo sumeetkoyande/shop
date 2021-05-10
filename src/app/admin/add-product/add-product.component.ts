@@ -1,8 +1,12 @@
+import { ProductService } from './../../services/product.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { category } from 'src/app/models/category.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-add-product',
@@ -12,6 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class AddProductComponent implements OnInit {
 
   categories$:Observable<category[]>;
+  product$:any = {};
 
   //custome validators
   numberPattern = '^[0-9]*$';
@@ -26,12 +31,23 @@ export class AddProductComponent implements OnInit {
   })
 
   constructor(
+    private router:Router,
+    private route:ActivatedRoute,
     private categoryService: CategoryService,
+    private productService: ProductService,
     private fb:FormBuilder
     ) { }
 
   ngOnInit() {
     this.categories$ = this.categoryService.getCategories();
+    let id = this.route.snapshot.paramMap.get('id');
+    if(id){
+      this.productService.getOne(id).pipe(take(1)).subscribe(
+        p => this.product$ = p
+      );
+      
+    }
+
   }
 
   //get form controlls
@@ -39,13 +55,17 @@ export class AddProductComponent implements OnInit {
     return this.addProductForm.controls;
   }
 
+  check(){
+    console.log(this.product$.title)
+  }
+
   //add product
   addProduct(){
-    if (this.addProductForm.valid){
-      console.log(this.addProductForm.value)
+    if(this.addProductForm.valid){
+      let productData = this.addProductForm.value;
+      this.productService.create(productData);
+      this.router.navigate(['admin/products']);
     }
-      
-   
   }
 
 }

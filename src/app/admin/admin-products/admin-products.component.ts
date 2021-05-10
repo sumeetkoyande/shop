@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductsComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  productData$;
+  displayedColumns: string[] = ['title','category','description','edit'];
 
-  ngOnInit(): void {
+  constructor(private productService:ProductService) { }
+
+  ngOnInit(){
+    this.productData$ = this.productService.getAll();
   }
+
   
-  temp(){
-    this.router.navigate(['/admin/products/add']);
-  }
-
+  
 }
