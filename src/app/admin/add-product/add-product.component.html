@@ -2,28 +2,27 @@
     <div fxFill fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="1">
         <div fxFlex="50" fxFlex.xs="90" class="form-wrapper my-2">
             <h2>Add Product</h2>
-            <button mat-raised-button (click)="check()">Check</button>
-            <form  [formGroup]="addProductForm" (ngSubmit)="addProduct()" fxFill fxLayout="column">
+            <form  [formGroup]="addProductForm" (ngSubmit)="save()" fxFill fxLayout="column">
                 <mat-form-field appearance="legacy">
                     <mat-label>Title</mat-label>
-                    <input [(ngModel)]="product$.title" matInput placeholder="Title" formControlName="title">
+                    <input matInput placeholder="Title" formControlName="title">
                     <mat-error *ngIf="f.title.hasError('required')">Title is Required</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Price</mat-label>
-                    <input [(ngModel)]="product$.price" type="number" matInput placeholder="Price" formControlName="price">
+                    <input type="number" matInput placeholder="Price" formControlName="price">
                     <mat-error *ngIf="f.price.hasError('required')">Price is Required</mat-error>
                     <!-- <mat-error *ngIf="f.price.hasError('pattern')">Enter valid price</mat-error> -->
                     <span matPrefix>&#8377;&nbsp;&nbsp;&nbsp;</span>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Description</mat-label>
-                    <input [(ngModel)]="product$.description" type="text" matInput placeholder="Price" formControlName="description">
+                    <input type="text" matInput placeholder="Price" formControlName="description">
                     <mat-error *ngIf="f.description.hasError('required')">Description is Required</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Category</mat-label>
-                    <mat-select formControlName="category" [(ngModel)]="product$.category">
+                    <mat-select formControlName="category">
                         <mat-option 
                             *ngFor="let category of categories$ |async" 
                             [value]="category.categoryID">
@@ -34,12 +33,12 @@
                 </mat-form-field>
                 <mat-form-field appearance="legacy">
                     <mat-label>Image URL</mat-label>
-                    <input [(ngModel)]="product$.imageURL" matInput placeholder="Image URL" formControlName="imageURL">
+                    <input matInput placeholder="Image URL" formControlName="imageURL">
                     <mat-error *ngIf="f.imageURL.hasError('required')">Image URL is Required</mat-error>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="end end">
-                    <button type="submit" color="primary" mat-raised-button>Add</button>
-                    <button *ngIf="" type="submit" color="primary" mat-raised-button>Update</button>
+                    <button *ngIf="!id" type="submit" color="primary" mat-raised-button>Add</button>
+                    <button *ngIf="id" type="submit" color="primary" mat-raised-button>Update</button>
                 </div>
             </form>
         </div>

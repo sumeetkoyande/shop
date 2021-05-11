@@ -1,5 +1,5 @@
 import { Product } from './../models/product.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class ProductService {
     return this.db.doc<Product>(`products/${productID}`).valueChanges();
   }
 
-  updateProduct(productID,product){
-    
+  update(productID,product){
+    return this.db.doc(`products/${productID}`).update(product)
   }
 }
