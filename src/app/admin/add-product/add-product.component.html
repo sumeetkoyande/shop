@@ -25,8 +25,8 @@
                     <mat-select formControlName="category">
                         <mat-option 
                             *ngFor="let category of categories$ |async" 
-                            [value]="category.categoryID">
-                            {{category.categoryName}}
+                            [value]="category.id">
+                            {{category.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="f.category.hasError('required')">category is Required</mat-error>
@@ -37,9 +37,9 @@
                     <mat-error *ngIf="f.imageURL.hasError('required')">Image URL is Required</mat-error>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
-                    <button *ngIf="!id" type="submit" color="primary" mat-raised-button>Add</button>
-                    <button *ngIf="id" type="button" color="primary" (click)="delete()" mat-raised-button>Delete</button>
-                    <button *ngIf="id" type="submit" color="primary" mat-raised-button>Update</button>
+                    <button *ngIf="!productID" type="submit" color="primary" mat-raised-button>Add</button>
+                    <button *ngIf="productID" type="button" color="primary" (click)="delete()" mat-raised-button>Delete</button>
+                    <button *ngIf="productID" type="submit" color="primary" mat-raised-button>Update</button>
                 </div>
             </form>
         </div>

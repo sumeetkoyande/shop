@@ -16,19 +16,19 @@ import { take } from 'rxjs/operators';
 export class AddProductComponent implements OnInit {
 
   categories$:Observable<category[]>;
-  product$ = <Product>{};
-  id;
+  product = <Product>{};
+  productID;
 
   //custome validators
   numberPattern = '^[0-9]*$';
   urlPattern = '^((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)$';
 
   addProductForm = this.fb.group({
-    title: [ this.product$.title, [ Validators.required ] ],
-    price: [ this.product$.price, [ Validators.required, Validators.pattern(this.numberPattern) ] ],
-    category: [ this.product$.category, [ Validators.required ] ],
-    description: [ this.product$.description, [ Validators.required ] ],
-    imageURL: [ this.product$.imageURL, [ Validators.required, Validators.pattern(this.urlPattern) ] ]
+    title: [ this.product.title, [ Validators.required ] ],
+    price: [ this.product.price, [ Validators.required, Validators.pattern(this.numberPattern) ] ],
+    category: [ this.product.category, [ Validators.required ] ],
+    description: [ this.product.description, [ Validators.required ] ],
+    imageURL: [ this.product.imageURL, [ Validators.required, Validators.pattern(this.urlPattern) ] ]
   })
 
   constructor(
@@ -43,12 +43,12 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {
     this.categories$ = this.categoryService.getCategories();
-      this.id = this.route.snapshot.paramMap.get('id');
-      if(this.id){
-        this.productService.getOne(this.id).pipe(take(1)).subscribe(
+      this.productID = this.route.snapshot.paramMap.get('id');
+      if(this.productID){
+        this.productService.getOne(this.productID).pipe(take(1)).subscribe(
           p => { 
-            this.product$ = p;
-            this.setAddProductFormValue(this.product$)
+            this.product = p;
+            this.setAddProductFormValue(this.product)
            }
         )
       }
@@ -73,7 +73,7 @@ export class AddProductComponent implements OnInit {
   //add or update product
   save(){
     if(this.addProductForm.valid){
-      if(this.id) this.productService.update(this.id,this.formValue);
+      if(this.productID) this.productService.update(this.productID,this.formValue);
       else this.productService.create(this.formValue);
 
       this.router.navigate(['admin/products']);
@@ -83,7 +83,7 @@ export class AddProductComponent implements OnInit {
   delete(){
     if(!confirm('Are you sure, You want to delete this product ?')) return;
 
-    this.productService.delete(this.id);
+    this.productService.delete(this.productID);
     this.router.navigate(['admin/products']);
   }
 

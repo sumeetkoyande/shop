@@ -12,7 +12,7 @@ export class CategoryService {
 
   getCategories(){
     let categoriesCollection:AngularFirestoreCollection<category> = this.db.collection<category>('categories');
-    let category:Observable<category[]> = categoriesCollection.valueChanges({ idField: 'categoryID' });
+    let category:Observable<category[]> = categoriesCollection.valueChanges({ idField: 'id' });
     return category;
   }
 }
