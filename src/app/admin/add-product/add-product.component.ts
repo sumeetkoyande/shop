@@ -38,7 +38,11 @@ export class AddProductComponent implements OnInit {
     private productService: ProductService,
     private fb:FormBuilder
     ) { 
-      this.categories$ = this.categoryService.getCategories();
+      
+    }
+
+  ngOnInit() {
+    this.categories$ = this.categoryService.getCategories();
       this.id = this.route.snapshot.paramMap.get('id');
       if(this.id){
         this.productService.getOne(this.id).pipe(take(1)).subscribe(
@@ -48,10 +52,6 @@ export class AddProductComponent implements OnInit {
            }
         )
       }
-    }
-
-  ngOnInit() {
-
   }
 
   //get form controlls
@@ -67,10 +67,10 @@ export class AddProductComponent implements OnInit {
     const { title,price,category,description,imageURL } = product
     this.addProductForm.setValue({
       title, price, category, description, imageURL
-    })
+    });
   }
 
-  //add and update product
+  //add or update product
   save(){
     if(this.addProductForm.valid){
       if(this.id) this.productService.update(this.id,this.formValue);
@@ -78,6 +78,13 @@ export class AddProductComponent implements OnInit {
 
       this.router.navigate(['admin/products']);
     }
+  }
+
+  delete(){
+    if(!confirm('Are you sure, You want to delete this product ?')) return;
+
+    this.productService.delete(this.id);
+    this.router.navigate(['admin/products']);
   }
 
 

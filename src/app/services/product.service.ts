@@ -1,5 +1,5 @@
 import { Product } from './../models/product.model';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ProductService {
   }
 
   getAll(){
-    return this.db.collection(`products`).valueChanges({idField: "id"});
+    return this.db.collection<Product>(`products`).valueChanges({idField: "id"});
   }
 
   getOne(productID){
@@ -23,6 +23,10 @@ export class ProductService {
   }
 
   update(productID,product){
-    return this.db.doc(`products/${productID}`).update(product)
+    return this.db.doc(`products/${productID}`).update(product);
+  }
+
+  delete(productID){
+    this.db.doc(`products/${productID}`).delete();
   }
 }

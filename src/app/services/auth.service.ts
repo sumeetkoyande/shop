@@ -40,7 +40,6 @@ export class AuthService {
 
   private async OAuthLogin(provider){
     let returnURL = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-    console.log(returnURL);
     let credentials = await this.afAuth.signInWithPopup(provider);
     await this.updateUser(credentials.user);
     this.router.navigate([returnURL]);

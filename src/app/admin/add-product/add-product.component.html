@@ -1,7 +1,7 @@
 <div class="nav-wrapper" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center" fxLayoutGap.xs="25px">
     <div fxFill fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="1">
         <div fxFlex="50" fxFlex.xs="90" class="form-wrapper my-2">
-            <h2>Add Product</h2>
+            <h1>Add Product</h1>
             <form  [formGroup]="addProductForm" (ngSubmit)="save()" fxFill fxLayout="column">
                 <mat-form-field appearance="legacy">
                     <mat-label>Title</mat-label>
@@ -36,8 +36,9 @@
                     <input matInput placeholder="Image URL" formControlName="imageURL">
                     <mat-error *ngIf="f.imageURL.hasError('required')">Image URL is Required</mat-error>
                 </mat-form-field>
-                <div fxLayout="row" fxLayoutAlign="end end">
+                <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
                     <button *ngIf="!id" type="submit" color="primary" mat-raised-button>Add</button>
+                    <button *ngIf="id" type="button" color="primary" (click)="delete()" mat-raised-button>Delete</button>
                     <button *ngIf="id" type="submit" color="primary" mat-raised-button>Update</button>
                 </div>
             </form>
@@ -46,7 +47,7 @@
 
     <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="2">
         <div fxFlex="50" fxFlex.xs="90" class="my-3">
-            <mat-card class="example-card">
+            <mat-card *ngIf="formValue.title" class="example-card">
                 <img mat-card-image [src]="f.imageURL.value">
                 <mat-card-header fxLayout="row" fxLayoutAlign="space-between center" >
                     <mat-card-title>{{f.title.value}}</mat-card-title>
