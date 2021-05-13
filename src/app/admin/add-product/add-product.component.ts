@@ -42,7 +42,7 @@ export class AddProductComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.categories$ = this.categoryService.getCategories();
+    this.categories$ = this.categoryService.getAll();
       this.productID = this.route.snapshot.paramMap.get('id');
       if(this.productID){
         this.productService.getOne(this.productID).pipe(take(1)).subscribe(

@@ -10,9 +10,9 @@ export class CategoryService {
 
   constructor(private db:AngularFirestore) { }
 
-  getCategories(){
-    let categoriesCollection:AngularFirestoreCollection<category> = this.db.collection<category>('categories');
-    let category:Observable<category[]> = categoriesCollection.valueChanges({ idField: 'id' });
+  getAll(){
+    let categoriesRef:AngularFirestoreCollection<category> = this.db.collection<category>('categories');
+    let category:Observable<category[]> = categoriesRef.valueChanges({ idField: 'id' });
     return category;
   }
 }

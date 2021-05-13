@@ -25,7 +25,7 @@
                     <mat-select formControlName="category">
                         <mat-option 
                             *ngFor="let category of categories$ |async" 
-                            [value]="category.id">
+                            [value]="category.name">
                             {{category.name}}
                         </mat-option>
                     </mat-select>
@@ -46,16 +46,16 @@
     </div>
 
     <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="2">
-        <div fxFlex="50" fxFlex.xs="90" class="my-3">
+        <div fxFlex="50" fxFlex.xs="90" class="my-3 card-wrapper">
             <mat-card *ngIf="formValue.title" class="example-card">
-                <img mat-card-image [src]="f.imageURL.value">
+                <img mat-card-image [src]="formValue.imageURL">
                 <mat-card-header fxLayout="row" fxLayoutAlign="space-between center" >
-                    <mat-card-title>{{f.title.value}}</mat-card-title>
-                    <mat-card-subtitle>{{f.category.value}}</mat-card-subtitle>
-                    <h3>{{f.price.value | currency:'INR'}}</h3>
+                    <mat-card-title>{{formValue.title}}</mat-card-title>
+                    <mat-card-subtitle>{{formValue.category}}</mat-card-subtitle>
+                    <h3>{{formValue.price | currency:'INR'}}</h3>
                 </mat-card-header>
                 <mat-card-content>
-                    <p>{{f.description.value}}</p>
+                    <p>{{formValue.description}}</p>
                 </mat-card-content>
                 <mat-card-actions fxLayout="row" fxLayoutAlign="end">
                 <button color="primary" *ngIf="addProductForm.valid" mat-raised-button>Purchase</button>
