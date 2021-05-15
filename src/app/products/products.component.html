@@ -1,11 +1,55 @@
 <div fxFlexFill fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="15px">
-    <div fxFill fxFlex="15" fxLayout="column" fxLayoutGap="10px">
-        <h1>Categories</h1>
-        <div fxLayout="column" fxLayoutAlign="start stretch" *ngFor="let c of category$ | async">
-            <button mat-stroked-button>{{c.name}}</button>
+    <div 
+        fxFill 
+        fxFlex="15" 
+        fxLayout="column" 
+        fxLayoutGap="10px" 
+        fxHide.sm 
+        fxHide.xs>
+        <h1 class="px-1">Categories</h1>
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <button mat-stroked-button routerLink="/products">All Categories</button>
+            <button 
+                *ngFor="let c of categories$ | async" 
+                routerLink="/products"
+                [queryParams]="{category: c.name}"
+                mat-stroked-button
+                >
+                {{c.name}}
+            </button>
         </div>
     </div>
-    <div fxFlex>
-        <h1>hi</h1>
+    <div 
+        fxFlex 
+        fxLayout="row wrap" 
+        fxLayoutAlign.gt-xs="start" 
+        fxLayoutAlign.sm="center center" 
+        fxLayoutAlign.xs="center center" 
+        class="p-2" 
+        fxLayoutGap="16px" >
+        <mat-card 
+            fxFlex.xs="40"
+            fxFlex.gt-xs="30"
+            fxFlex.gt-sm="20"
+            fxFlex.gt-md="15" 
+            fxFlex.gt-lg="10" 
+            fxLayout="column" 
+            fxLayoutAlign="space-between" 
+            class="example-card mt-1" 
+            *ngFor="let p of filteredProducts">
+            <div>
+                <img mat-card-image [src]="p.imageURL">
+                <mat-card-header fxLayout="row" fxLayoutAlign="space-between center" >
+                    <mat-card-title [ngStyle.xs]="{'font-size.px': 15}">{{p.title}}</mat-card-title>
+                    <mat-card-subtitle>{{p.price | currency:'INR'}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{p.description}}</p>
+                </mat-card-content>
+            </div>
+            <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+            <button color="primary" mat-raised-button>Add to cart</button>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Product } from './../models/product.model';
 import { Observable } from 'rxjs';
 import { category } from './../models/category.model';
@@ -12,17 +13,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  category$:Observable<category[]>;
-  products$:Observable<Product[]>;
+  categories$:Observable<category[]>;
+  category:string;
+  products:Product[] = [];
+  filteredProducts:Product[]=[]
 
   constructor(
+    private route: ActivatedRoute,
     private categoryService:CategoryService, 
     private productService:ProductService
     ) { }
 
   ngOnInit() {
-    this.category$ = this.categoryService.getAll();
-    this.products$ = this.productService.getAll();
+    this.categories$ = this.categoryService.getAll();
+    this.productService.getAll().subscribe( p => this.filteredProducts = this.products = p);
+
+    this.route.queryParamMap.subscribe(params => {
+      this.category = params.get('category')
+
+      this.filteredProducts = (this.category) ? 
+        this.products.filter(p => p.category === this.category ) : this.products;
+    })
   }
 
 }
