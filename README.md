@@ -4,10 +4,10 @@ I'm developing this project as a part of learning concepts of Angular and Fireba
 
 ## Project highlights 
 
-- [Angular 11][]
-- [Angular Material 11][]
-- [Angular Flex Layout][]
-- [Firebase for backend and hosting][]
+- Angular 11
+- Angular Material 11
+- Angular Flex Layout
+- Firebase for backend and hosting
 
 ## Shop
 
