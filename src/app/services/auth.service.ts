@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 
 

@@ -1,4 +1,15 @@
-# Shop
+# About This Project
+
+I'm developing this project as a part of learning concepts of Angular and Firebase. This project is the demonstration of my understanding of Angular and Javascript as I'm looking forward to becoming a Web Developer.
+
+## Project highlights 
+
+- [Angular 11][]
+- [Angular Material 11][]
+- [Angular Flex Layout][]
+- [Firebase for backend and hosting][]
+
+## Shop
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
