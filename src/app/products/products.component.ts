@@ -1,9 +1,7 @@
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from './../models/product.model';
-import { Observable } from 'rxjs';
-import { category } from './../models/category.model';
 import { ProductService } from './../services/product.service';
-import { CategoryService } from './../services/category.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,26 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  categories$:Observable<category[]>;
   category:string;
   products:Product[] = [];
-  filteredProducts:Product[]=[]
+  filteredProducts:Product[]=[];
 
   constructor(
     private route: ActivatedRoute,
-    private categoryService:CategoryService, 
     private productService:ProductService
     ) { }
 
   ngOnInit() {
-    this.categories$ = this.categoryService.getAll();
-    this.productService.getAll().subscribe( p => this.filteredProducts = this.products = p);
+    let serachCategory = this.productService.getAll().pipe(
+      switchMap(p => {
+        this.products = p;
+        return this.route.queryParamMap
+      })
+    )
 
-    this.route.queryParamMap.subscribe(params => {
+    serachCategory.subscribe(params => {
       this.category = params.get('category')
 
-      this.filteredProducts = (this.category) ? 
-        this.products.filter(p => p.category === this.category ) : this.products;
+      this.filteredProducts = (this.category) ?
+        this.products.filter(p => this.category === p.category) : this.products;
     })
   }
 

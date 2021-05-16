@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { NgModule } from '@angular/core';
@@ -22,7 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     AdminRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
 })
 export class AdminModule { }

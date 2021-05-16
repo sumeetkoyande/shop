@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { MaterialModule } from './material/material.module';
@@ -27,6 +28,8 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './shared/product-card/product-card.component';
 
 
 @NgModule({
@@ -40,6 +43,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     OrderSuccessComponent,
     MyOrdersComponent,
     NotFoundComponent,
+    ProductFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FlexLayoutModule,
     HttpClientModule,
     AdminModule,
-    AuthModule
+    AuthModule,
+    SharedModule
   ],
   providers: [
     { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },

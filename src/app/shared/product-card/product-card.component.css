@@ -1,0 +1,10 @@
+:host /deep/ .mat-card-header-text {
+    margin: 0;
+}
+.mat-card-image{
+    height: 150px;
+    object-fit: cover;
+}
+.mat-card-content{
+    min-height: 40px;
+}

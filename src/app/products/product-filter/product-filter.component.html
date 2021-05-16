@@ -1,0 +1,12 @@
+<h1 class="px-1">Categories</h1>
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <button mat-stroked-button routerLink="/products" >All Categories</button>
+    <button 
+        *ngFor="let c of categories$ | async" 
+        routerLink="/products"
+        [queryParams]="{category: c.name}"
+        mat-stroked-button
+        >
+        {{c.name}}
+    </button>
+</div>
