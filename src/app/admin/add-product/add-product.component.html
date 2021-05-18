@@ -48,20 +48,6 @@
     <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="center center" fxFlexOrder.xs="2">
         <div fxFlex="50" fxFlex.xs="90" class="my-3 card-wrapper">
             <product-card [product]="formValue"></product-card>
-            <!-- <mat-card *ngIf="formValue.title" class="example-card">
-                <img mat-card-image [src]="formValue.imageURL">
-                <mat-card-header fxLayout="row" fxLayoutAlign="space-between center" >
-                    <mat-card-title>{{formValue.title}}</mat-card-title>
-                    <mat-card-subtitle>{{formValue.category}}</mat-card-subtitle>
-                    <h3>{{formValue.price | currency:'INR'}}</h3>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>{{formValue.description}}</p>
-                </mat-card-content>
-                <mat-card-actions fxLayout="row" fxLayoutAlign="end">
-                <button color="primary" *ngIf="addProductForm.valid" mat-raised-button>Purchase</button>
-                </mat-card-actions>
-            </mat-card> -->
         </div>
     </div>
 

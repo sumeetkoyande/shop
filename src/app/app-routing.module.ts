@@ -14,26 +14,26 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  //open routes
-  { path: '', redirectTo:'home', pathMatch:'full' },
+  // open routes
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
 
-  //Protected routes
-  { path: 'check-out', component: CheckOutComponent, canActivate:[AuthGuard] },
-  { path: 'my/orders', component: MyOrdersComponent, canActivate:[AuthGuard] },
-  { path: 'order-success', component: OrderSuccessComponent, canActivate:[AuthGuard] },
+  // Protected routes
+  { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
+  { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
-  //admin routes
+  // admin routes
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule )
   },
-  
-  //wildcard route
+
+  // wildcard route
   { path: '**', component: NotFoundComponent }
 ];
 

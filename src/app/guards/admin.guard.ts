@@ -9,22 +9,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private auth:AuthService, private router:Router){}
+  constructor(private auth: AuthService, private router: Router){}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.user$.pipe(
       take(1),
-      map( (user:User) => !!(user && user.role.admin) ),
+      map( (user: User) => !!(user && user.role.admin) ),
       tap(isAdmin => {
-        if(!isAdmin){
+        if (!isAdmin){
           this.router.navigate(['/home']);
-          console.log(isAdmin)
-          console.log('access denide...');
-          console.log(`You don't have admin permission`)
         }
       })
     );
   }
-  
+
 }

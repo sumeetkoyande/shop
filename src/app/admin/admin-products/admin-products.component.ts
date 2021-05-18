@@ -10,26 +10,26 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent implements OnInit,OnDestroy {
+export class AdminProductsComponent implements OnInit, OnDestroy {
 
-  products:Product[];
-  productSubcription:Subscription;
+  products: Product[];
+  productSubcription: Subscription;
 
-  //for material table
-  displayedColumns: string[] = ['title','price','edit'];
-  dataSource:MatTableDataSource<Product>
+  // for material table
+  displayedColumns: string[] = ['title', 'price', 'edit'];
+  dataSource: MatTableDataSource<Product>;
 
-  @ViewChild('paginator') paginator:MatPaginator;
+  @ViewChild('paginator') paginator: MatPaginator;
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(){
     // To get data for table
     this.productSubcription = this.productService.getAll()
-      .subscribe(p => { 
+      .subscribe(p => {
         this.products = p;
         this.dataSource = new MatTableDataSource(this.products);
-        this.dataSource.paginator = this.paginator
+        this.dataSource.paginator = this.paginator;
       });
   }
 
@@ -39,6 +39,6 @@ export class AdminProductsComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(){
-    this.productSubcription.unsubscribe()
+    this.productSubcription.unsubscribe();
   }
 }

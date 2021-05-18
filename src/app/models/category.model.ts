@@ -1,4 +1,4 @@
-export interface category{
-    id?:string,
-    name:string
+export interface Category{
+    id?: string;
+    name: string;
 }

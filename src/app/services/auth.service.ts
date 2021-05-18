@@ -24,13 +24,13 @@ export class AuthService {
     ) {
       this.user$ = afAuth.authState.pipe(
         switchMap(user => {
-          if(user){
+          if (user){
             return this.db.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
-            return of(null)
+            return of(null);
           }
         })
-      )
+      );
     }
 
   async googleLogin() {
@@ -39,30 +39,30 @@ export class AuthService {
   }
 
   private async OAuthLogin(provider){
-    let returnURL = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-    let credentials = await this.afAuth.signInWithPopup(provider);
+    const returnURL = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+    const credentials = await this.afAuth.signInWithPopup(provider);
     await this.updateUser(credentials.user);
     this.router.navigate([returnURL]);
   }
 
   private updateUser(user){
-    const userRef:AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
-    const userData:User = { 
-      uid : user.uid, 
-      email: user.email, 
-      displayName: user.displayName, 
+    const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
+    const userData: User = {
+      uid : user.uid,
+      email: user.email,
+      displayName: user.displayName,
       photoURL: user.photoURL,
       role: {
         subscriber: true
       }
     };
-    userRef.set(userData,{ merge:true });
+    userRef.set(userData, { merge: true });
   }
 
   async logout() {
     await this.afAuth.signOut();
     this.router.navigate(['/']);
   }
-  
+
 }
 

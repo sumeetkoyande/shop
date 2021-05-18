@@ -7,22 +7,22 @@ import { Injectable } from '@angular/core';
 })
 export class ProductService {
 
-  constructor(private db:AngularFirestore) { }
+  constructor(private db: AngularFirestore) { }
 
-  create(product:Product){
-    let productRef = this.db.collection(`products`);
+  create(product: Product){
+    const productRef = this.db.collection(`products`);
     productRef.add(product);
   }
 
   getAll(){
-    return this.db.collection<Product>(`products`).valueChanges({idField: "id"});
+    return this.db.collection<Product>(`products`).valueChanges({idField: 'id'});
   }
 
   getOne(productID){
     return this.db.doc<Product>(`products/${productID}`).valueChanges();
   }
 
-  update(productID,product){
+  update(productID, product){
     return this.db.doc(`products/${productID}`).update(product);
   }
 

@@ -1,4 +1,4 @@
-import { category } from './../../models/category.model';
+import { Category } from './../../models/category.model';
 import { CategoryService } from './../../services/category.service';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -10,12 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductFilterComponent implements OnInit {
 
-  categories$:Observable<category[]>
+  categories$: Observable<Category[]>;
 
-  constructor(private categoryService:CategoryService) { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.categories$ = this.categoryService.getAll()
+    this.categories$ = this.categoryService.getAll();
   }
 
 }

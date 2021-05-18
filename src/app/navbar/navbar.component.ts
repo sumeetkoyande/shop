@@ -10,7 +10,7 @@ export class NavbarComponent  {
 
 
   constructor(public auth: AuthService) {
-    
+
   }
 
   logout(){

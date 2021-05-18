@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductCardComponent{
 
-  @Input('product') product:Product;
-  @Input('show-actions') showActions:boolean = true;
+  @Input('product') product: Product;
+  @Input('showAction') showActions = true;
   constructor() { }
 
 

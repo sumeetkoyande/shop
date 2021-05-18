@@ -11,29 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  category:string;
-  products:Product[] = [];
-  filteredProducts:Product[]=[];
+  category: string;
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private productService:ProductService
+    private productService: ProductService
     ) { }
 
   ngOnInit() {
-    let serachCategory = this.productService.getAll().pipe(
+    const serachCategory = this.productService.getAll().pipe(
       switchMap(p => {
         this.products = p;
-        return this.route.queryParamMap
+        return this.route.queryParamMap;
       })
-    )
+    );
 
     serachCategory.subscribe(params => {
-      this.category = params.get('category')
+      this.category = params.get('category');
 
       this.filteredProducts = (this.category) ?
         this.products.filter(p => this.category === p.category) : this.products;
-    })
+    });
   }
 
 }
