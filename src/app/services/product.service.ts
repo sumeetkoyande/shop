@@ -19,7 +19,7 @@ export class ProductService {
   }
 
   getOne(productID){
-    return this.db.doc<Product>(`products/${productID}`).valueChanges();
+    return this.db.doc<Product>(`products/${productID}`).valueChanges({idField:'id'});
   }
 
   update(productID, product){
