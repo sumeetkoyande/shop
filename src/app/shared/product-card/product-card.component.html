@@ -10,9 +10,11 @@
         </mat-card-content>
     </div>
     <mat-card-actions fxLayout="row" fxLayoutAlign="end">
-    <button 
-        *ngIf="showActions" 
-        (click)="addToCart(product)"
-        color="primary" mat-raised-button>Add to cart</button>
+        <div *ngIf="showActions" >
+            <button (click)="addToCart(product)" color="primary" mat-raised-button>Add to cart</button>
+            <button mat-stroked-button disabled><mat-icon>check</mat-icon>Added to cart</button>
+            <button>{{getQuantity()}}</button>
+        </div>
+    
     </mat-card-actions>
 </mat-card>

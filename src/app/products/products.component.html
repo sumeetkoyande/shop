@@ -14,7 +14,7 @@
         fxLayoutAlign.gt-xs="start" 
         fxLayoutAlign.sm="center center" 
         fxLayoutAlign.xs="center center" 
-        class="p-2" 
+        [ngClass.gt-xs]="['p-2']"
         fxLayoutGap="16px" >
         <div
             fxFlex.xs="40"
@@ -26,7 +26,7 @@
             *ngFor="let p of filteredProducts"
             class="mt-2"
             >
-            <product-card [product] = p></product-card>
+            <product-card [product]="p" [shopping-cart]="cart"></product-card>
         </div>
     </div>
 </div>

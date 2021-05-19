@@ -10,7 +10,7 @@ service cloud.firestore {
     match /products/{productId} {
       allow read
     }
-    match /shopping-carts/{cartId}{
+    match /shopping-carts/{cartId}/items{
       allow read, write;
     }
     match /shopping-carts/{cartId}/items/{productId}{
