@@ -2,7 +2,7 @@ import { Product } from './../models/product.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app'
-import { ShoppingCart } from '../models/shopingCart.model';
+import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,11 @@ export class ShoppingCartService {
 
   async getCart(){
     let cartId = await this.getOrCreateCartId();
-    return this.db.collection<ShoppingCart>(`shopping-carts/${cartId}/items`).valueChanges({idField: 'id'});
+    return this.db.collection<ShoppingCartItem>(`shopping-carts/${cartId}/items`).valueChanges();
   }
 
   private getItem(cartId: string, productId: string){
-    return this.db.doc(`shopping-carts/${cartId}/items/${productId}`);
+    return this.db.doc<ShoppingCartItem>(`shopping-carts/${cartId}/items/${productId}`);
   }
 
  private async getOrCreateCartId(){
@@ -36,15 +36,27 @@ export class ShoppingCartService {
  }
 
  async addToCart(product: Product){
+  // increase product count in cart by +1
+  let increment = firebase.firestore.FieldValue.increment(1);
+  this.updateProductQuantity(product,increment)
+ }
+
+ async removeFromCart(product: Product){
+  // decrease product count in cart by -1
+  let increment = firebase.firestore.FieldValue.increment(-1);
+  this.updateProductQuantity(product,increment)
+ }
+
+ //increment or decrement product quantity in cart
+ private async updateProductQuantity(product: Product, count: any){
   let cartId = await this.getOrCreateCartId();
-  let item = this.getItem(cartId,product.id)
-  let increment = firebase.firestore.FieldValue.increment(1)
+  let item = this.getItem(cartId,product.id);
 
   const data = {
     product,
-    quantity: increment
+    quantity: count
   }
-  item.set(data,{ merge: true })
+  item.set(data,{ merge: true });
  }
 
 }

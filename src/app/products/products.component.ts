@@ -1,4 +1,4 @@
-import { ShoppingCart } from './../models/shopingCart.model';
+import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 import { ShoppingCartService } from './../services/shopping-cart.service';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';

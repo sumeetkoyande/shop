@@ -1,4 +1,4 @@
-import { ShoppingCart } from './../../models/shopingCart.model';
+import { ShoppingCartItem } from '../../models/shopping-cart-item.model';
 import { ShoppingCartService } from './../../services/shopping-cart.service';
 
 import { Product } from '../../models/product.model';
@@ -13,17 +13,17 @@ export class ProductCardComponent{
 
   @Input('product') product: Product;
   @Input('showActions') showActions: boolean = true;
-  @Input('shopping-cart') shoppingCart:ShoppingCart[]
+  @Input('shopping-cart') shoppingCart:ShoppingCartItem[]
   constructor(private cartService: ShoppingCartService) { }
 
-  addToCart(product: Product){
-    this.cartService.addToCart(product)
+  addToCart(){
+    this.cartService.addToCart(this.product)
   }
 
   getQuantity(){
     if(!this.shoppingCart) return 0;
 
-    let quantity
+    let quantity = 0;
     this.shoppingCart.filter(x => {
       if(x.product.id === this.product.id)
         quantity = x.quantity
