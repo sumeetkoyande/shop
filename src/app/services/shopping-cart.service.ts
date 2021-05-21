@@ -7,16 +7,18 @@ import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService {
+export class ShoppingCartService{
 
-  constructor(private db: AngularFirestore) { }
+  shoppingCartItemCount:number
+
+  constructor(private db: AngularFirestore) {  }
 
   private create(){
     return this.db.collection('shopping-carts').add({
       createdAt: new Date().getTime()
     });
   }
-
+  
   async getCart(){
     let cartId = await this.getOrCreateCartId();
     return this.db.collection<ShoppingCartItem>(`shopping-carts/${cartId}/items`).valueChanges();

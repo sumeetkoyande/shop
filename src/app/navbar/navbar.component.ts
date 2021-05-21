@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit{
 
-  shoppingCartItemCount:number
+  shoppingCartItemCount:number;
 
   constructor(
     public auth: AuthService,
@@ -17,12 +17,13 @@ export class NavbarComponent implements OnInit{
     ) {  }
 
   async ngOnInit(){
+
+    // to get total quantity of product in cart
     let cart$ = await this.cartService.getCart();
     cart$.subscribe(products => {
       this.shoppingCartItemCount = 0;
       for(let p of products){
         this.shoppingCartItemCount += p.quantity
-        console.log(p.quantity)
       }
     })
   }
