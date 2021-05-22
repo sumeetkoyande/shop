@@ -1,5 +1,5 @@
 import { Product } from './product.model';
-export interface ShoppingCartItem{
+export class ShoppingCartItem{
     product: Product;
     quantity: number;
 }

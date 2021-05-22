@@ -61,4 +61,8 @@ export class ShoppingCartService{
   item.set(data, { merge: true });
  }
 
+ getTotalItemPrice(item:ShoppingCartItem){
+  return item.product.price * item.quantity
+ }
+
 }
