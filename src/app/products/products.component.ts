@@ -12,13 +12,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit,OnDestroy {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   category: string;
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  cart:any;
-  cartSubscription:Subscription
+  cart: any;
+  cartSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
 
   async ngOnInit() {
 
-    //to get ad display product & show product if there is query params
+    // to get ad display product & show product if there is query params
     const serachCategory = this.productService.getAll().pipe(
       switchMap(p => {
         this.products = p;
@@ -43,7 +43,7 @@ export class ProductsComponent implements OnInit,OnDestroy {
     });
 
     this.cartSubscription = (await this.cartService.getCart())
-      .subscribe(cart => this.cart = cart )
+      .subscribe(cart => this.cart = cart );
   }
 
   ngOnDestroy(){

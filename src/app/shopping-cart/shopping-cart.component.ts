@@ -7,21 +7,21 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit,OnDestroy {
+export class ShoppingCartComponent implements OnInit, OnDestroy {
 
-  shoppingCartItemCount:number;
-  cartSubscription$:Subscription
+  shoppingCartItemCount: number;
+  cartSubscription$: Subscription;
 
-  constructor(private cartService:ShoppingCartService) { }
+  constructor(private cartService: ShoppingCartService) { }
 
   async ngOnInit() {
     // to get total quantity of product in cart
     this.cartSubscription$ = (await this.cartService.getCart()).subscribe(products => {
       this.shoppingCartItemCount = 0;
-      for(let p of products){
-        this.shoppingCartItemCount += p.quantity
+      for (const p of products){
+        this.shoppingCartItemCount += p.quantity;
       }
-    })
+    });
   }
 
   ngOnDestroy(){

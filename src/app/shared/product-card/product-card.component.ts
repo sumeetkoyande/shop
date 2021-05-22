@@ -12,23 +12,24 @@ import { Component, Input } from '@angular/core';
 export class ProductCardComponent{
 
   @Input('product') product: Product;
-  @Input('showActions') showActions: boolean = true;
-  @Input('shopping-cart') shoppingCart:ShoppingCartItem[]
+  @Input('showActions') showActions = true;
+  @Input('shopping-cart') shoppingCart: ShoppingCartItem[];
   constructor(private cartService: ShoppingCartService) { }
 
   addToCart(){
-    this.cartService.addToCart(this.product)
+    this.cartService.addToCart(this.product);
   }
 
   getQuantity(){
-    if(!this.shoppingCart) return 0;
+    if (!this.shoppingCart) { return 0; }
 
     let quantity = 0;
     this.shoppingCart.filter(x => {
-      if(x.product.id === this.product.id)
-        quantity = x.quantity
-    })
-    return quantity
+      if (x.product.id === this.product.id) {
+        quantity = x.quantity;
+      }
+    });
+    return quantity;
   }
 
 }

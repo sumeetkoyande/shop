@@ -1,7 +1,7 @@
 import { Product } from './../models/product.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 })
 export class ShoppingCartService{
 
-  shoppingCartItemCount:number
+  shoppingCartItemCount: number;
 
   constructor(private db: AngularFirestore) {  }
 
@@ -18,9 +18,9 @@ export class ShoppingCartService{
       createdAt: new Date().getTime()
     });
   }
-  
+
   async getCart(){
-    let cartId = await this.getOrCreateCartId();
+    const cartId = await this.getOrCreateCartId();
     return this.db.collection<ShoppingCartItem>(`shopping-carts/${cartId}/items`).valueChanges();
   }
 
@@ -29,36 +29,36 @@ export class ShoppingCartService{
   }
 
  private async getOrCreateCartId(){
-   let cartId = localStorage.getItem('cartId');
-   if(cartId) return cartId;
+   const cartId = localStorage.getItem('cartId');
+   if (cartId) { return cartId; }
 
-   let result = await this.create();
-   localStorage.setItem('cartId',result.id);
+   const result = await this.create();
+   localStorage.setItem('cartId', result.id);
    return result.id;
  }
 
  async addToCart(product: Product){
   // increase product count in cart by +1
-  let increment = firebase.firestore.FieldValue.increment(1);
-  this.updateProductQuantity(product,increment)
+  const increment = firebase.firestore.FieldValue.increment(1);
+  this.updateProductQuantity(product, increment);
  }
 
  async removeFromCart(product: Product){
   // decrease product count in cart by -1
-  let increment = firebase.firestore.FieldValue.increment(-1);
-  this.updateProductQuantity(product,increment)
+  const increment = firebase.firestore.FieldValue.increment(-1);
+  this.updateProductQuantity(product, increment);
  }
 
- //increment or decrement product quantity in cart
+ // increment or decrement product quantity in cart
  private async updateProductQuantity(product: Product, count: any){
-  let cartId = await this.getOrCreateCartId();
-  let item = this.getItem(cartId,product.id);
+  const cartId = await this.getOrCreateCartId();
+  const item = this.getItem(cartId, product.id);
 
   const data = {
     product,
     quantity: count
-  }
-  item.set(data,{ merge: true });
+  };
+  item.set(data, { merge: true });
  }
 
 }
