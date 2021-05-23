@@ -15,7 +15,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   shoppingCartItemCount: number;
   cartSubscription$: Subscription;
 
-  cartItems:ShoppingCartItem[] = [];
+  cart:ShoppingCartItem[] = [];
   dataSource:MatTableDataSource<ShoppingCartItem>;
   displayedColumns: string[] = ['title', 'quantity', 'price'];
   @ViewChild('paginator') paginator: MatPaginator;
@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     // to get total quantity of product in cart
     this.cartSubscription$ = (await this.cartService.getCart()).subscribe(products => {
-      this.cartItems = products
+      this.cart = products
       this.dataSource = new MatTableDataSource(products);
       this.dataSource.paginator = this.paginator
       this.shoppingCartItemCount = 0;
@@ -33,10 +33,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         this.shoppingCartItemCount += p.quantity;
       }
     });
-  }
-
-  getTotalPrice(item:ShoppingCartItem){
-    return item.product.price * item.quantity
   }
 
   ngOnDestroy(){

@@ -19,8 +19,7 @@ export class NavbarComponent implements OnInit{
   async ngOnInit(){
 
     // to get total quantity of product in cart
-    const cart$ = await this.cartService.getCart();
-    cart$.subscribe(products => {
+    (await this.cartService.getCart()).subscribe(products => {
       this.shoppingCartItemCount = 0;
       for (const p of products){
         this.shoppingCartItemCount += p.quantity;

@@ -1,15 +1,14 @@
+import { Observable } from 'rxjs';
 import { Product } from './../models/product.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import firebase from 'firebase/app';
 import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService{
-
-  shoppingCartItemCount: number;
+export class ShoppingCartService {
 
   constructor(private db: AngularFirestore) {  }
 
@@ -61,8 +60,17 @@ export class ShoppingCartService{
   item.set(data, { merge: true });
  }
 
+ //get total price of each item if multiple quantity
  getTotalItemPrice(item:ShoppingCartItem){
   return item.product.price * item.quantity
+ }
+
+ getTotalPrice(items:ShoppingCartItem[]){
+   let total = 0;
+   for(let i of items){
+     total += this.getTotalItemPrice(i)
+   }
+   return total;
  }
 
 }
