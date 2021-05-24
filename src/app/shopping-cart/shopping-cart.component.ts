@@ -14,25 +14,33 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   shoppingCartItemCount: number;
   cartSubscription$: Subscription;
+  cart:ShoppingCartItem[]=[];
 
-  cart:ShoppingCartItem[] = [];
-  dataSource:MatTableDataSource<ShoppingCartItem>;
   displayedColumns: string[] = ['title', 'quantity', 'price'];
+  dataSource: MatTableDataSource<ShoppingCartItem>;
+
   @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(public cartService: ShoppingCartService) { }
 
   async ngOnInit() {
     // to get total quantity of product in cart
-    this.cartSubscription$ = (await this.cartService.getCart()).subscribe(products => {
-      this.cart = products
-      this.dataSource = new MatTableDataSource(products);
-      this.dataSource.paginator = this.paginator
-      this.shoppingCartItemCount = 0;
-      for (const p of products){
-        this.shoppingCartItemCount += p.quantity;
-      }
+    this.cartSubscription$ = (await this.cartService.getCart())
+      .subscribe(products => {
+        this.cart = products;
+        this.dataSource = new MatTableDataSource(this.cart);
+        this.dataSource.paginator = this.paginator;
+
+        this.shoppingCartItemCount = 0;
+        for (const p of products){
+          this.shoppingCartItemCount += p.quantity;
+        }
     });
+  }
+
+  filter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnDestroy(){

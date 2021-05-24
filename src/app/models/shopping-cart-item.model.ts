@@ -1,5 +1,7 @@
-import { Product } from './product.model';
 export class ShoppingCartItem{
-    product: Product;
+    id?: string;
+    title: string;
+    price: number;
+    imageURL: string;
     quantity: number;
 }

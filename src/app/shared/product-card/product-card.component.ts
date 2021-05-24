@@ -25,7 +25,7 @@ export class ProductCardComponent{
 
     let quantity = 0;
     this.shoppingCart.filter(x => {
-      if (x.product.id === this.product.id) {
+      if (x.id === this.product.id) {
         quantity = x.quantity;
       }
     });

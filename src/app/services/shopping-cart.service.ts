@@ -1,7 +1,6 @@
-import { Observable } from 'rxjs';
 import { Product } from './../models/product.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { ShoppingCartItem } from '../models/shopping-cart-item.model';
 
@@ -20,7 +19,7 @@ export class ShoppingCartService {
 
   async getCart(){
     const cartId = await this.getOrCreateCartId();
-    return this.db.collection<ShoppingCartItem>(`shopping-carts/${cartId}/items`).valueChanges();
+    return this.db.collection<ShoppingCartItem>(`shopping-carts/${cartId}/items`).valueChanges({idField: 'id'});
   }
 
   private getItem(cartId: string, productId: string){
@@ -53,8 +52,11 @@ export class ShoppingCartService {
   const cartId = await this.getOrCreateCartId();
   const item = this.getItem(cartId, product.id);
 
+  const {title,price,imageURL} = product
   const data = {
-    product,
+    title,
+    price,
+    imageURL,
     quantity: count
   };
   item.set(data, { merge: true });
@@ -62,7 +64,7 @@ export class ShoppingCartService {
 
  //get total price of each item if multiple quantity
  getTotalItemPrice(item:ShoppingCartItem){
-  return item.product.price * item.quantity
+  return item.price * item.quantity
  }
 
  getTotalPrice(items:ShoppingCartItem[]){
