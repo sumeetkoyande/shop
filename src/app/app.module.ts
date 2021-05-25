@@ -28,6 +28,7 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductQuantityUpdateComponent } from './product-quantity-update/product-quantity-update.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     MyOrdersComponent,
     NotFoundComponent,
     ProductFilterComponent,
+    ProductQuantityUpdateComponent,
   ],
   imports: [
     BrowserModule,

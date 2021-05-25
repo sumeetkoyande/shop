@@ -16,7 +16,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   cartSubscription$: Subscription;
   cart:ShoppingCartItem[]=[];
 
-  displayedColumns: string[] = ['title', 'quantity', 'price'];
+  displayedColumns: string[] = ['Product Details', 'price'];
   dataSource: MatTableDataSource<ShoppingCartItem>;
 
   @ViewChild('paginator') paginator: MatPaginator;

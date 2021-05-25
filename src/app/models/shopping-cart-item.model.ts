@@ -3,5 +3,5 @@ export class ShoppingCartItem{
     title: string;
     price: number;
     imageURL: string;
-    quantity: number;
+    quantity: any;
 }

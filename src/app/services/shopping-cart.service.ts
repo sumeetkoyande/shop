@@ -36,19 +36,6 @@ export class ShoppingCartService {
  }
 
  async addToCart(product: Product){
-  // increase product count in cart by +1
-  const increment = firebase.firestore.FieldValue.increment(1);
-  this.updateProductQuantity(product, increment);
- }
-
- async removeFromCart(product: Product){
-  // decrease product count in cart by -1
-  const increment = firebase.firestore.FieldValue.increment(-1);
-  this.updateProductQuantity(product, increment);
- }
-
- // increment or decrement product quantity in cart
- private async updateProductQuantity(product: Product, count: any){
   const cartId = await this.getOrCreateCartId();
   const item = this.getItem(cartId, product.id);
 
@@ -57,9 +44,39 @@ export class ShoppingCartService {
     title,
     price,
     imageURL,
-    quantity: count
+    quantity: 1
   };
-  item.set(data, { merge: true });
+  item.set(data);
+ }
+
+ async addQuantity(item: ShoppingCartItem){
+  const cartId = await this.getOrCreateCartId();
+  const itemRef = this.getItem(cartId,item.id);
+
+  // increase product count in cart by +1
+  const increment = firebase.firestore.FieldValue.increment(1);
+  itemRef.update({quantity: increment})
+ }
+
+ async removeQuantity(item: ShoppingCartItem){
+  const cartId = await this.getOrCreateCartId();
+  const itemRef = this.getItem(cartId,item.id);
+
+  if(item.quantity > 1){
+    const increment = firebase.firestore.FieldValue.increment(-1);
+    itemRef.update({quantity: increment});
+  }
+ }
+
+ deleteFromCart(productId:string){
+  const cartId = localStorage.getItem('cartId');
+  this.db.doc(`shopping-carts/${cartId}/items/${productId}`).delete()
+ }
+
+ // increment or decrement product quantity in cart
+ private async updateProductQuantity(product: Product, count: any){
+  const cartId = await this.getOrCreateCartId();
+  const item = this.getItem(cartId, product.id);
  }
 
  //get total price of each item if multiple quantity

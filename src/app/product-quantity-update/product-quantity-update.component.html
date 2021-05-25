@@ -1,0 +1,9 @@
+<div fxLayout="row" fxLayout.lt-sm="column">
+    <div>
+      Quantity : 
+      <button mat-icon-button (click)="cartService.removeQuantity(item)"> <mat-icon>remove</mat-icon> </button>
+      {{item.quantity}}
+      <button mat-icon-button (click)="cartService.addQuantity(item)"> <mat-icon>add</mat-icon> </button>
+    </div>
+    <button mat-stroked-button ngClass.lt-sm="mt-1" (click)="cartService.deleteFromCart(item.id)">Delete</button>
+</div>
