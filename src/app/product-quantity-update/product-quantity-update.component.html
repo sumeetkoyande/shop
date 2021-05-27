@@ -1,9 +1,11 @@
 <div fxLayout="row" fxLayout.lt-sm="column">
-    <div>
-      Quantity : 
-      <button mat-icon-button (click)="cartService.removeQuantity(item)"> <mat-icon>remove</mat-icon> </button>
-      {{item.quantity}}
-      <button mat-icon-button (click)="cartService.addQuantity(item)"> <mat-icon>add</mat-icon> </button>
+    <div fxLayout="row" fxLayoutGap="15px">
+      <h3 class="mb-0">Quantity : </h3>
+      <div class="border-primary">
+        <button mat-icon-button (click)="cartService.removeQuantity(item)"> <mat-icon>remove</mat-icon> </button>
+        {{item.quantity}}
+        <button mat-icon-button (click)="cartService.addQuantity(item)"> <mat-icon>add</mat-icon> </button>
+      </div>
     </div>
-    <button mat-stroked-button ngClass.lt-sm="mt-1" (click)="cartService.deleteFromCart(item.id)">Delete</button>
+    <button mat-button ngClass.lt-sm="mt-1" (click)="cartService.deleteFromCart(item.id)">Delete</button>
 </div>

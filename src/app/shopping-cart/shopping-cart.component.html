@@ -1,66 +1,77 @@
-<h2>Total {{shoppingCartItemCount}} items in cart</h2>
-<h3>{{cartService.getTotalPrice(cart)}}</h3>
-
-<div fxFlexFill fxLayout="row" fxLayoutAlign="center start">
+<div fxFlexFill fxLayout="row" fxLayoutAlign="start start" fxHide.xs>
     <div 
     fxFlex="90" 
     fxFlex.xs="100" 
     fxLayout="column" 
     fxLAyoutAlign="center center" 
     class="wrapper"
-    ngClass.gt-sm="p-1 border-primary"
+    ngClass.gt-sm="p-1"
     >
-        <div fxFlex="50" fxLayout="column" class="mb-2" >
-            <mat-form-field class="example-form-field">
-                <mat-label>Search product</mat-label>
-                <input (keyup)="filter($event)" matInput type="text" #input>
-            </mat-form-field>
-        </div>
-        <div fxLayout="column">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                <ng-container matColumnDef="Product Details">
-                  <th mat-header-cell *matHeaderCellDef> Product Details </th>
+      <div fxLayout="column">
+          <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="Product Details">
+                <th mat-header-cell *matHeaderCellDef> 
+                  <h2>Shopping Cart</h2>
+                </th>
 
-                  <td mat-cell *matCellDef="let element"> 
-                    <div 
-                      fxLayout="row" 
-                      ngClass.gt-sm="p-1" 
-                      ngClass.sm="py-1" 
-                      ngClass.lt-sm="py-1"
-                      >
-                      <img 
-                          [src]=element.imageURL 
-                          ngClass.gt-sm="product-img" 
-                          ngClass.sm="product-img-sm" 
-                          ngClass.lt-sm="product-img-sm"
-                          >
-                      <div class="px-1" fxLayout="column" fxLayoutAlign="start start">
-                        <h2 class="mb-0">{{element.title}}</h2>
-                        <p>desc {{element.description}}</p>
+                <td mat-cell *matCellDef="let element"> 
+                  <div 
+                    fxLayout="row" 
+                    ngClass.gt-sm="p-1" 
+                    ngClass.sm="py-1" 
+                    >
+                    <img 
+                        [src]=element.imageURL 
+                        ngClass.gt-sm="product-img" 
+                        ngClass.sm="product-img-sm" 
+                        >
+                    <div class="px-1" fxLayout="column" fxLayoutAlign="start start">
+                      <h2 class="mb-0">{{element.title}}</h2>
+                      <p>desc {{element.description}}</p>
 
-                        <!-- update quantity or delete -->
-                        <app-product-quantity-update [item]="element"></app-product-quantity-update>
+                      <!-- update quantity or delete -->
+                      <app-product-quantity-update [item]="element"></app-product-quantity-update>
 
-                      </div>
                     </div>
-                  </td>
+                  </div>
+                </td>
+                <td mat-footer-cell *matFooterCellDef> </td>
 
-                </ng-container>
+              </ng-container>
 
-                <ng-container matColumnDef="price">
-                  <th mat-header-cell *matHeaderCellDef>Price</th>
-                  <td mat-cell *matCellDef="let element">{{cartService.getTotalItemPrice(element)}}</td>
-                </ng-container>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="txt-right">
+                  <h3>{{cartService.getTotalItemPrice(element) | currency:"INR"}}</h3>
+                </td>
+                <td mat-footer-cell *matFooterCellDef class="txt-right">
+                    <span>Subtotal ({{shoppingCartItemCount}} item) : </span> 
+                    <span class="font-bold">{{cartService.getTotalPrice(cart) | currency:"INR"}} </span>
+                </td>
+              </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                <!-- Row shown when there is no matching data. -->
-                <tr class="mat-row" *matNoDataRow>
-                  <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                </tr>
-            </table>
-            <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
     </div>
+</div>
+
+<div class="p-1" fxLayout='column' fxHide.gt-xs>
+  <div>
+    <span class="font-2">Subtotal : </span> 
+    <span class="font-2 font-500">{{cartService.getTotalPrice(cart) | currency:"INR"}}</span>
+  </div>
+
+  <div *ngFor="let item of cart" fxLayout='row' class="my-2">
+    <img [src]="item.imageURL" class="product-img-sm">
+    <div fxLayout="column">
+      <span>{{item.title}}</span>
+      <span class="font-2 font-500">{{item.price | currency:"INR"}}</span>
+      <!-- update quantity or delete -->
+      <app-product-quantity-update [item]="item"></app-product-quantity-update>
+    </div>
+  </div>
 </div>

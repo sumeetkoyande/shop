@@ -63,6 +63,7 @@ export class ShoppingCartService {
   const itemRef = this.getItem(cartId,item.id);
 
   if(item.quantity > 1){
+    // decrease product count in cart by -1
     const increment = firebase.firestore.FieldValue.increment(-1);
     itemRef.update({quantity: increment});
   }
@@ -71,12 +72,6 @@ export class ShoppingCartService {
  deleteFromCart(productId:string){
   const cartId = localStorage.getItem('cartId');
   this.db.doc(`shopping-carts/${cartId}/items/${productId}`).delete()
- }
-
- // increment or decrement product quantity in cart
- private async updateProductQuantity(product: Product, count: any){
-  const cartId = await this.getOrCreateCartId();
-  const item = this.getItem(cartId, product.id);
  }
 
  //get total price of each item if multiple quantity

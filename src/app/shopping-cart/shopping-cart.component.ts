@@ -19,7 +19,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['Product Details', 'price'];
   dataSource: MatTableDataSource<ShoppingCartItem>;
 
-  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public cartService: ShoppingCartService) { }
 
