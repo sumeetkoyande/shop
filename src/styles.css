@@ -18,6 +18,20 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+/* width */
+.w-25{
+  width: 25% !important;
+}
+.w-50{
+  width: 50% !important;
+}
+.w-75{
+  width:-75% !important;
+}
+.w-100{
+  width: 100% !important;
+}
+
 /* PAddings */
 .p-1{
   padding:1em;
@@ -52,6 +66,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Margins */
+.m-1{
+  margin: 1em !important;
+}
+.m-2{
+  margin: 1.5em !important;
+}
+.m-3{
+  margin: 2em !important;
+}
+
 /* margin y axis */
 .my-1{
   margin: 1em 0 !important;

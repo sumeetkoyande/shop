@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const materialModule = [
   CommonModule,
@@ -33,7 +34,8 @@ const materialModule = [
   MatIconModule,
   MatSelectModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatStepperModule
 ];
 
 @NgModule({

@@ -1,13 +1,20 @@
-<div fxFlexFill fxLayout="row" fxLayoutAlign="start start" fxHide.xs>
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="cart.length">
+  <div fxLayoutAlign="end" fxFlex="95" class="p-1">
+    <button mat-raised-button color="primary" routerLink="/check-out">Check out</button>
+  </div>
+</div>
+
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center start" fxHide.xs>
     <div 
-    fxFlex="90" 
+    fxFlex="95" 
     fxFlex.xs="100" 
     fxLayout="column" 
     fxLAyoutAlign="center center" 
     class="wrapper"
     ngClass.gt-sm="p-1"
+    *ngIf="cart.length; else cartEmpty"
     >
-      <div fxLayout="column">
+      <div fxLayout="column" >
           <table mat-table [dataSource]="dataSource">
               <ng-container matColumnDef="Product Details">
                 <th mat-header-cell *matHeaderCellDef> 
@@ -36,7 +43,6 @@
                   </div>
                 </td>
                 <td mat-footer-cell *matFooterCellDef> </td>
-
               </ng-container>
 
               <ng-container matColumnDef="price">
@@ -54,12 +60,18 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
       </div>
     </div>
+
+    <ng-template #cartEmpty>
+      <h2>No items in cart</h2>
+    </ng-template>
 </div>
 
-<div class="p-1" fxLayout='column' fxHide.gt-xs>
+
+<!-- Mobile layout -->
+<div class="p-1" fxLayout='column' fxHide.gt-xs *ngIf="cart.length; else cartEmptyMobile">
   <div>
     <span class="font-2">Subtotal : </span> 
     <span class="font-2 font-500">{{cartService.getTotalPrice(cart) | currency:"INR"}}</span>
@@ -75,3 +87,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #cartEmptyMobile>
+  <h2>No items in cart</h2>
+</ng-template>
+<!-- mobile layout end -->
+
+
+

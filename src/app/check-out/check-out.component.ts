@@ -1,3 +1,5 @@
+import { ShoppingCartItem } from './../models/shopping-cart-item.model';
+import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit {
+
+  dataSource:MatTableDataSource<ShoppingCartItem[]>
 
   constructor() { }
 

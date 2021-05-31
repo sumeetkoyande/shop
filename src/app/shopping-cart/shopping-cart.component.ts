@@ -3,7 +3,7 @@ import { ShoppingCartItem } from './../models/shopping-cart-item.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { ShoppingCartService } from './../services/shopping-cart.service';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-shopping-cart',

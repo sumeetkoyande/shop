@@ -27,23 +27,29 @@ export class ProductsComponent implements OnInit, OnDestroy {
     ) { }
 
   async ngOnInit() {
+    this.getProducts();
 
-    // to get ad display product & show product if there is query params
-    const serachCategory = this.productService.getAll().pipe(
+    this.cartSubscription = (await this.cartService.getCart())
+      .subscribe(cart => this.cart = cart );
+  }
+
+  // to get ad display product & show product if there is query params
+  private getProducts(){
+    this.productService.getAll().pipe(
       switchMap(p => {
         this.products = p;
         return this.route.queryParamMap;
       })
-    );
-    serachCategory.subscribe(params => {
+    ).subscribe(params => {
       this.category = params.get('category');
-
-      this.filteredProducts = (this.category) ?
-        this.products.filter(p => this.category === p.category) : this.products;
+      this.applyFilter()
     });
+  }
 
-    this.cartSubscription = (await this.cartService.getCart())
-      .subscribe(cart => this.cart = cart );
+  // filter product if there is any query params
+  private applyFilter(){
+    this.filteredProducts = (this.category) ?
+        this.products.filter(p => this.category === p.category) : this.products;
   }
 
   ngOnDestroy(){
