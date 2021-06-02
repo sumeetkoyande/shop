@@ -1,5 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center center" *ngIf="cart.length">
-  <div fxLayoutAlign="end" fxFlex="95" class="p-1">
+  <div fxLayoutAlign="end" fxFlex="95" class="p-1" fxLayoutGap="15px">
+    <button mat-button (click)="cartService.clearCart()">Clear cart</button>
     <button mat-raised-button color="primary" routerLink="/check-out">Check out</button>
   </div>
 </div>
